@@ -9,46 +9,81 @@ from sources.form import Ui_Dialog
 
 class App(QtWidgets.QDialog, Ui_Dialog):
 
+    radio_btn_dict_default ={"rate":24000,"name":"aidar","format":"mp3"}
+
+
     def __init__(self) ->None:
         super().__init__()  
         self.setupUi(self)   
+        '''Default radio buttom'''
+        self.rButtonRate1.setChecked(True)
+        self.rButtonFormat1.setChecked(True)
+        self.rButtonMale.setChecked(True)
 
-        # '''Обработчики кнопок'''      
-        # self.pushButtonListen.clicked.connect()
-        self.pushButtonSave.clicked.connect(self.get_text)  
+        '''Обработчики кнопок'''      
+        self.pushButtonListen.clicked.connect(self.repeate_text)
+        self.pushButtonSave.clicked.connect(self.save_to_file)
+        self.rButtonRate1.clicked.connect(lambda: self.checked_radio_buttom("rate1")) 
+        self.rButtonRate2.clicked.connect(lambda: self.checked_radio_buttom("rate2")) 
+        self.rButtonMale.clicked.connect(lambda: self.checked_radio_buttom("male")) 
+        self.rButtonFemale.clicked.connect(lambda: self.checked_radio_buttom("female")) 
+        self.rButtonFormat1.clicked.connect(lambda: self.checked_radio_buttom("format1")) 
+        self.rButtonFormat2.clicked.connect(lambda: self.checked_radio_buttom("format2")) 
 
-    def get_text(self):
-        msg = QMessageBox(self)         
-        msg.setWindowTitle('title')
-        msg.setText('<speak>' + self.plainTextEdit.toPlainText() + '</speak>')
+    def get_text(self) -> str:
+        '''Получить текст из plainTextEdit'''
+        if self.plainTextEdit.toPlainText()=="":
+            self.send_message_box(text_msg="Текст не обнаружен, введите текст и попробуйте заново.")
+            return ""
+        else: return "<speak>" + self.plainTextEdit.toPlainText() + "</speak>"
+
+    def send_message_box(self, text_msg: str, icon: str = "Information") -> None:
+        '''Вывод сообщения на экран (ошибка, информация, критическая ошибка и тд.)'''
+        msg = QMessageBox(self)
+        msg.setWindowTitle("ArtPY message")
+        msg.setText(text_msg)
+        if icon=="Warning":
+            msg.setIcon(QMessageBox.Icon.Warning)
+        elif icon=="Information":
+            msg.setIcon(QMessageBox.Icon.Information)
+        elif icon=="Question":
+            msg.setIcon(QMessageBox.Icon.Question)
+        elif icon=="Critical":
+            msg.setIcon(QMessageBox.Icon.Critical)
         msg.exec()
 
-        # self.label.setText(_translate("Dialog", "Выберете частоту:"))
-        # self.rButtonRate1.setText(_translate("Dialog", "24000"))
-        # self.rButtonRate2.setText(_translate("Dialog", "48000"))
-        # self.label_2.setText(_translate("Dialog", "Выберете голос:"))
-        # self.rButtonMale.setText(_translate("Dialog", "Мужской"))
-        # self.rButtonFemale.setText(_translate("Dialog", "Женский"))
-        # self.label_3.setText(_translate("Dialog", "Формат сохранения файла:"))
-        # self.rButtonFormat1.setText(_translate("Dialog", "mp3"))
-        # self.rButtonFormat2.setText(_translate("Dialog", "wav"))
-        # self.pushButtonListen.setText(_translate("Dialog", "Прослушать"))
-        # self.pushButtonSave.setText(_translate("Dialog", "Сохранить в файл")) 
+    def repeate_text(self) -> None:
+        pass
 
+    def save_to_file(self) -> None:
+        speak = Speaker()
+        speak.check_file_model()
+        _rate=self.radio_btn_dict_default["rate"]
+        _format=self.radio_btn_dict_default["format"]
+        _speaker=self.radio_btn_dict_default["name"]
+        if self.get_text() != "":
+            speak.save(rate=_rate,format=_format,text=self.get_text(),speaker=_speaker)
+    
+    def checked_radio_buttom(self, r_button_name: str) ->None:
+        '''Меняет значения словаря при событии клик у QRadioButtom'''
+        if r_button_name == "rate1":
+            self.radio_btn_dict_default["rate"]=24000
+        if r_button_name == "rate2":
+            self.radio_btn_dict_default["rate"]=48000
+        if r_button_name == "male":
+            self.radio_btn_dict_default["name"]="aidar"
+        if r_button_name == "female":
+            self.radio_btn_dict_default["name"]="kseniya"
+        if r_button_name == "format1":
+            self.radio_btn_dict_default["format"]="mp3"
+        if r_button_name == "format2":
+            self.radio_btn_dict_default["format"]="wav"
 
 def main():
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
     window = App()  # Создаём объект класса ExampleApp
     window.show()  # Показываем окно
     sys.exit(app.exec())  # и запускаем приложение
-
-# text = """
-#     <speak>
-#         Внимание!!! 
-#         Пожа+рная тревога!!!
-#         Тушите ЮЛЮ!
-#     </speak>
-#     """
 
 if __name__=="__main__":
     main()
