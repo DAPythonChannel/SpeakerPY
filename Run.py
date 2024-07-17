@@ -1,7 +1,6 @@
 from SpeakerPy import Speaker
 #Импорт Qt libs для формирования GUI и обработчиков событий
 from PyQt6 import QtWidgets
-from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QMessageBox
 
 import sys, os
@@ -15,7 +14,7 @@ class App(QtWidgets.QDialog, Ui_Dialog):
     def __init__(self) ->None:
         super().__init__()  
         self.setupUi(self)   
-        '''Default radio buttom'''
+        '''Значения по умолчанию для radio buttom'''
         self.rButtonRate1.setChecked(True)
         self.rButtonFormat1.setChecked(True)
         self.rButtonMale.setChecked(True)
@@ -53,7 +52,12 @@ class App(QtWidgets.QDialog, Ui_Dialog):
         msg.exec()
 
     def repeate_text(self) -> None:
-        pass
+        speak = Speaker()
+        speak.check_file_model()
+        _rate=self.radio_btn_dict_default["rate"]
+        _speaker=self.radio_btn_dict_default["name"]
+        if self.get_text() != "":
+            speak.repeate(rate=_rate,text=self.get_text(),speaker=_speaker)
 
     def save_to_file(self) -> None:
         speak = Speaker()
