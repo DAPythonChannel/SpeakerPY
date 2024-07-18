@@ -2,3 +2,4 @@ out
 sources/*.ui
 __pycache__
 sources/*.pt
+.DS_Store
