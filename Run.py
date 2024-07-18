@@ -4,11 +4,13 @@ from PyQt6.QtWidgets import QMessageBox
 from sources.form import Ui_Dialog
 from SpeakerPy import Speaker
 
+
+PATH_TO_FILE=os.path.dirname(__file__)
+
 class App(QtWidgets.QDialog, Ui_Dialog):
 
     def __init__(self) ->None:
         self.radio_btn_dict_default ={"rate":24000,"name":"aidar","format":"mp3"} # Параметры по умолчанию
-        self.path_to_file=os.path.dirname(__file__)
         #Инициализация GUI
         super().__init__()  
         self.setupUi(self)   
@@ -88,9 +90,9 @@ class App(QtWidgets.QDialog, Ui_Dialog):
 def startfine(self) -> None:
     '''Открывает папку с аудио файлами'''
     if os.name == "nt":
-        os.startfile(self.path_to_file+r"\out")
+        os.startfile(PATH_TO_FILE+r"\out")
     else:
-        os.system(f'open {self.path_to_file+r"/out"}')
+        os.system(f'open {PATH_TO_FILE+r"/out"}')
 
 def main():
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
