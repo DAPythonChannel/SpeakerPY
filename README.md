@@ -17,7 +17,7 @@
 <p>pip install -r req.txt или pip3.9 install -r req.txt</p>
 
 <h3>Запускаем ПО:</h3>
-<p>python Run.py или python3.9 Run.py</p>
+<p><code>python Run.py или python3.9 Run.py</code></p>
 
 <h3>Дополнительная информация тут:</h3>
 <p>https://github.com/alphacep/awesome-russian-speech?tab=readme-ov-file</p>
