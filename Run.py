@@ -4,8 +4,7 @@ from PyQt6.QtWidgets import QMessageBox
 from sources.form import Ui_Dialog
 from SpeakerPy import Speaker
 
-
-PATH_TO_FILE=os.path.dirname(__file__)
+LOCAL_FILE_OUT = os.path.join(os.path.dirname(__file__),"out")
 
 class App(QtWidgets.QDialog, Ui_Dialog):
 
@@ -90,9 +89,9 @@ class App(QtWidgets.QDialog, Ui_Dialog):
 def startfine(self) -> None:
     '''Открывает папку с аудио файлами'''
     if os.name == "nt":
-        os.startfile(PATH_TO_FILE+r"\out")
+        os.startfile(LOCAL_FILE_OUT)
     else:
-        os.system(f'open {PATH_TO_FILE+r"/out"}')
+        os.system(f'open {LOCAL_FILE_OUT}')
 
 def main():
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication

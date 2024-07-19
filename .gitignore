@@ -2,4 +2,6 @@ out
 sources/*.ui
 __pycache__
 sources/*.pt
-.DS_Store
+DS_Store
+*.wav
+*.mp3
