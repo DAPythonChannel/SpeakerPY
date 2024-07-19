@@ -10,13 +10,13 @@
 <p>python3.9, torch (мощная либа, работает с моделями, можно создавать/использовать/обучать свои модели), torchaudio(сохраняет модели), wget, PyQt6</p>
 
 <h2>Установка и запуск:</h2>
-<h5>Устанавливаем 
-<a href="https://www.python.org/downloads/release/python-3913/">Python 3.9</a> c официального сайта:</h5> 
+<p>Устанавливаем 
+<a href="https://www.python.org/downloads/release/python-3913/">Python 3.9</a> c официального сайта.</p> 
 
-<h5>Устанавливаем нужные библиотеки следующей командой:</h5>
-<p><code>pip install -r req.txt или pip3.9 install -r req.txt<code></p>
+<p>Устанавливаем нужные библиотеки следующей командой:</p>
+<p><code>pip install -r req.txt или pip3.9 install -r req.txt</code></p>
 
-<h5>Запускаем ПО:</h5>
+<p>Запускаем ПО:</p>
 <p><code>python Run.py или python3.9 Run.py</code></p>
 
-<h4>Дополнительная информация <a href="https://github.com/alphacep/awesome-russian-speech?tab=readme-ov-file">тут</a>:</h4>
+<p>Дополнительная информация <a href="https://github.com/alphacep/awesome-russian-speech?tab=readme-ov-file">тут</a>:</p>
