@@ -7,7 +7,7 @@
 можно ставить знаком "+".</p>
 
 <h2>Выбор технологий:</h2>
-<p>python3.9, torch (мощная либа, работает с моделями, можно создавать/использовать/обучать свои модели), torchaudio(сохраняет модели), wget, PyQt6</p>
+<p>python3.9, torch (мощная либа, работает с моделями, можно создавать/использовать/обучать свои модели), torchaudio(сохраняет модели), wget, PyQt6.</p>
 
 <h2>Установка и запуск:</h2>
 <p>Устанавливаем 
@@ -19,4 +19,4 @@
 <p>Запускаем ПО:</p>
 <p><code>python Run.py или python3.9 Run.py</code></p>
 
-<p>Дополнительная информация <a href="https://github.com/alphacep/awesome-russian-speech?tab=readme-ov-file">тут</a>:</p>
+<p>Дополнительная информация <a href="https://github.com/alphacep/awesome-russian-speech?tab=readme-ov-file">тут</a>.</p>
