@@ -1,4 +1,4 @@
-import os, torch, wget, torchaudio, sounddevice as sd
+import os, torch, wget, torchaudio, requests, shutil, sounddevice as sd
 from datetime import datetime
 
 LOCAL_FILE = os.path.join(os.path.dirname(__file__),"sources","v3_1_ru.pt")
@@ -16,7 +16,15 @@ class Speaker():
     def check_file_model(self) -> None:
         '''Проверяем есть файл модели в ресурсе, если нет скачиваем его.'''
         if not os.path.isfile(LOCAL_FILE):
-            wget.download(self.URL_FILE_WGET, LOCAL_FILE)
+            self.download_model()
+
+    def download_model(self):
+        '''Скачивает модель и записывает в файл'''
+        r = requests.get(URL_FILE_WGET, stream=True)
+        if r.status_code == 200:
+            with open(LOCAL_FILE, 'wb') as f:
+                r.raw.decode_content = True
+                shutil.copyfileobj(r.raw, f)
 
     def save(self, rate: int, format: str, text: str, speaker: str) -> None:
         '''Сохраняет текст в файл выбранного формата (mp3,wav): где rate - это частота, format - формат сохранения файла,
