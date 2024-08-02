@@ -3,6 +3,7 @@ from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QMessageBox
 from sources.form import Ui_Dialog
 from SpeakerPy import Speaker
+import threading
 
 LOCAL_FILE_OUT = os.path.join(os.path.dirname(__file__),"out")
 
@@ -18,8 +19,8 @@ class App(QtWidgets.QDialog, Ui_Dialog):
         self.rButtonFormat1.setChecked(True)
         self.rButtonMale.setChecked(True)
         #Обработчики кнопок      
-        self.pushButtonListen.clicked.connect(self.repeate_text)
-        self.pushButtonSave.clicked.connect(self.save_to_file)
+        self.pushButtonListen.clicked.connect(self.thread_repeater_text)
+        self.pushButtonSave.clicked.connect(self.thread_save_to_file)
         #Обработка кнопок radio
         self.rButtonRate1.clicked.connect(lambda: self.checked_radio_buttom("rate1")) 
         self.rButtonRate2.clicked.connect(lambda: self.checked_radio_buttom("rate2")) 
@@ -27,6 +28,8 @@ class App(QtWidgets.QDialog, Ui_Dialog):
         self.rButtonFemale.clicked.connect(lambda: self.checked_radio_buttom("female")) 
         self.rButtonFormat1.clicked.connect(lambda: self.checked_radio_buttom("format1")) 
         self.rButtonFormat2.clicked.connect(lambda: self.checked_radio_buttom("format2")) 
+        self.th = threading.Thread()
+
 
     def get_text(self) -> str:
         '''Получить текст из plainTextEdit'''
@@ -50,6 +53,10 @@ class App(QtWidgets.QDialog, Ui_Dialog):
             msg.setIcon(QMessageBox.Icon.Critical)
         msg.exec()
 
+    def thread_repeater_text(self):
+        th = threading.Thread(target=self.repeate_text)
+        th.start()
+
     def repeate_text(self) -> None:
         '''Воспроизвести написанный текст с указанными параметрами'''
         speak = Speaker()
@@ -58,6 +65,10 @@ class App(QtWidgets.QDialog, Ui_Dialog):
         _speaker=self.radio_btn_dict_default["name"]
         if self.get_text() != "":
             speak.repeate(rate=_rate,text=self.get_text(),speaker=_speaker)
+
+    def thread_save_to_file(self):
+        th = threading.Thread(target=self.save_to_file)
+        th.start()
 
     def save_to_file(self) -> None:
         '''Сохранение данных в аудио файл с указанными параметрами'''
